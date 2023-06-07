@@ -25,7 +25,7 @@ pub mod windows {
     #[macro_export]
     macro_rules! LPCSTR {
         ( $x:expr ) => {
-            std::ffi::CString::new($x).unwrap().as_ptr() as crate::types::windows::LPCSTR
+            std::ffi::CString::new($x).unwrap().as_ptr() as LPCSTR
         };
     }
 
@@ -36,7 +36,7 @@ pub mod windows {
                 .encode_wide()
                 .chain(std::iter::once(0))
                 .collect::<Vec<u16>>()
-                .as_ptr() as crate::types::windows::LPCWSTR;
+                .as_ptr() LPCWSTR
         };
     }
 }
