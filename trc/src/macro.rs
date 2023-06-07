@@ -36,7 +36,7 @@ pub mod windows {
                 .encode_wide()
                 .chain(std::iter::once(0))
                 .collect::<Vec<u16>>()
-                .as_ptr() LPCWSTR
+                .as_ptr() as LPCWSTR
         };
     }
 }
