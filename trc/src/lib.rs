@@ -1,7 +1,9 @@
 use std::ffi::c_ulong;
+use std::os::windows::ffi::OsStrExt;
 
-pub mod path;
 pub mod r#macro;
+pub mod path;
+pub mod types;
 
 pub type HWND = isize;
 
@@ -13,19 +15,20 @@ pub enum WindowHandle {
 }
 
 pub struct XLibHandle {
-    handle: XLibWndHandle
+    handle: XLibWndHandle,
 }
 
 pub struct WindowsHandle {
-    handle: HWND
+    handle: HWND,
 }
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use crate::path::{IntoBackSlash, IntoSlash};
     use std::path::Path;
     use std::ptr::{addr_of, addr_of_mut};
-    use crate::path::{IntoBackSlash, IntoSlash};
-    use super::*;
+    use crate::types::windows::LPCSTR;
 
     #[test]
     fn backslash_path_to_slash_path() {
@@ -46,6 +49,14 @@ mod tests {
         let mut a = 50;
         let a_ptr = &mut a;
         let b = ref_ptr!(a_ptr);
-        assert_eq!(50,*b);
+        assert_eq!(50, *b);
+    }
+
+    #[test]
+    fn lpcstr() {
+        let lpcstr = LPCSTR!("Hello");
+        let lpcwstr = LPCWSTR!("Hello");
+        assert_null!(lpcstr);
+        assert_null!(lpcwstr);
     }
 }
