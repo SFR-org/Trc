@@ -28,7 +28,7 @@ mod tests {
     use crate::path::{IntoBackSlash, IntoSlash};
     use std::path::Path;
     use std::ptr::{addr_of, addr_of_mut};
-    use crate::types::windows::LPCSTR;
+    use crate::types::windows::*;
 
     #[test]
     fn backslash_path_to_slash_path() {
@@ -56,7 +56,11 @@ mod tests {
     fn lpcstr() {
         let lpcstr = LPCSTR!("Hello");
         let lpcwstr = LPCWSTR!("Hello");
+        let mut pstr = PSTR!("Hello");
+        let pwstr = PWSTR!("Hello");
         assert_null!(lpcstr);
         assert_null!(lpcwstr);
+        assert_null!(pstr);
+        assert_null!(pwstr);
     }
 }

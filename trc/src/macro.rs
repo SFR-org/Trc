@@ -39,4 +39,22 @@ pub mod windows {
                 .as_ptr() as LPCWSTR
         };
     }
+
+    #[macro_export]
+    macro_rules! PSTR {
+        ( $x: expr) => {
+            $x.as_bytes().as_ptr() as PSTR
+        };
+    }
+
+    #[macro_export]
+    macro_rules! PWSTR {
+        ( $x: expr) => {
+            std::ffi::OsString::from($x)
+                .encode_wide()
+                .chain(std::iter::once(0))
+                .collect::<Vec<u16>>()
+                .as_mut_ptr() as PWSTR
+        };
+    }
 }
